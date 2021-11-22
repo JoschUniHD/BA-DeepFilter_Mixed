@@ -111,7 +111,7 @@ if __name__ == "__main__":
             pickle.dump(timing, output)
         print('Timing nv ' + str(nv) + ' saved')
 
-
+'''
     ####### LOAD EXPERIMENTS #######
 
     # Load timing
@@ -546,7 +546,7 @@ if __name__ == "__main__":
                          signal_name=None,
                          beat_no=None)
 
-
+'''
 
 
 

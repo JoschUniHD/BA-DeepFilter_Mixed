@@ -171,39 +171,63 @@ def Data_Preparation(noise_version=1):
     noise_index = 0
 
     # Adding noise to train
-    rnd_train = np.random.randint(low=20, high=200, size=len(beats_train)) / 100
+    rnd_train_bw = np.random.randint(low=0, high=200, size=len(beats_train)) / 100
+    rnd_train_em = np.random.randint(low=0, high=200, size=len(beats_train)) / 100
+    rnd_train_ma = np.random.randint(low=0, high=200, size=len(beats_train)) / 100
     for i in range(len(beats_train)):
-        noise = noise_train[noise_index:noise_index + samples]
+        noise_bw = noise_train_bw[noise_index:noise_index + samples]
+        noise_em = noise_train_em[noise_index:noise_index + samples]
+        noise_ma = noise_train_ma[noise_index:noise_index + samples]
         beat_max_value = np.max(beats_train[i]) - np.min(beats_train[i])
-        noise_max_value = np.max(noise) - np.min(noise)
-        Ase = noise_max_value / beat_max_value
-        alpha = rnd_train[i] / Ase
-        signal_noise = beats_train[i] + alpha * noise
+        noise_max_value_bw = np.max(noise_bw) - np.min(noise_bw)
+        noise_max_value_em = np.max(noise_em) - np.min(noise_em)
+        noise_max_value_ma = np.max(noise_ma) - np.min(noise_ma)
+        Ase_bw = noise_max_value_bw / beat_max_value
+        Ase_em = noise_max_value_em / beat_max_value
+        Ase_ma = noise_max_value_ma / beat_max_value
+        alpha_bw = rnd_train_bw[i] / Ase_bw
+        alpha_em = rnd_train_em[i] / Ase_em
+        alpha_ma = rnd_train_ma[i] / Ase_ma
+        signal_noise = beats_train[i] + alpha_bw * noise_bw + alpha_em * noise_em + alpha_ma * noise_ma
         sn_train.append(signal_noise)
         noise_index += samples
 
-        if noise_index > (len(noise_train) - samples):
+        if noise_index > (len(noise_train_bw) - samples) or noise_index > (len(noise_train_em) - samples) or noise_index > (len(noise_train_ma) - samples):
             noise_index = 0
 
     # Adding noise to test
     noise_index = 0
-    rnd_test = np.random.randint(low=20, high=200, size=len(beats_test)) / 100
+    rnd_test_bw = np.random.randint(low=0, high=200, size=len(beats_test)) / 100
+    rnd_test_em = np.random.randint(low=0, high=200, size=len(beats_test)) / 100
+    rnd_test_ma = np.random.randint(low=0, high=200, size=len(beats_test)) / 100
 
     # Saving the random array so we can use it on the amplitude segmentation tables
-    np.save('rnd_test.npy', rnd_test)
-    print('rnd_test shape: ' + str(rnd_test.shape))
+    np.save('rnd_test_bw.npy', rnd_test_bw)
+    np.save('rnd_test_em.npy', rnd_test_em)
+    np.save('rnd_test_ma.npy', rnd_test_ma)
+    print('rnd_test_bw shape: ' + str(rnd_test_bw.shape))
+    print('rnd_test_em shape: ' + str(rnd_test_em.shape))
+    print('rnd_test_ma shape: ' + str(rnd_test_ma.shape))
 
     for i in range(len(beats_test)):
-        noise = noise_test[noise_index:noise_index + samples]
+        noise_bw = noise_test_bw[noise_index:noise_index + samples]
+        noise_em = noise_test_em[noise_index:noise_index + samples]
+        noise_ma = noise_test_ma[noise_index:noise_index + samples]
         beat_max_value = np.max(beats_test[i]) - np.min(beats_test[i])
-        noise_max_value = np.max(noise) - np.min(noise)
-        Ase = noise_max_value / beat_max_value
-        alpha = rnd_test[i] / Ase
-        signal_noise = beats_test[i] + alpha * noise
+        noise_max_value_bw = np.max(noise_bw) - np.min(noise_bw)
+        noise_max_value_em = np.max(noise_em) - np.min(noise_em)
+        noise_max_value_ma = np.max(noise_ma) - np.min(noise_ma)
+        Ase_bw = noise_max_value_bw / beat_max_value
+        Ase_em = noise_max_value_em / beat_max_value
+        Ase_ma = noise_max_value_ma / beat_max_value
+        alpha_bw = rnd_test_bw[i] / Ase_bw
+        alpha_em = rnd_test_em[i] / Ase_em
+        alpha_ma = rnd_test_ma[i] / Ase_ma
+        signal_noise = beats_test[i] + alpha_bw * noise_bw + alpha_em * noise_em + alpha_ma * noise_ma
         sn_test.append(signal_noise)
         noise_index += samples
 
-        if noise_index > (len(noise_test) - samples):
+        if noise_index > (len(noise_test_bw) - samples) or noise_index > (len(noise_test_em) - samples) or noise_index > (len(noise_test_ma) - samples):
             noise_index = 0
 
 

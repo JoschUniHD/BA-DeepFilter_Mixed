@@ -203,9 +203,9 @@ def Data_Preparation(noise_version=1):
         N_bw = noise_pw(noise_bw)
         N_em = noise_pw(noise_em)
         N_ma = noise_pw(noise_ma)
-        alpha_bw = np.sqrt(10 ** (-rnd_train[i] / 10) * S / N_bw) / np.sqrt(3)
-        alpha_em = np.sqrt(10 ** (-rnd_train[i] / 10) * S / N_em) / np.sqrt(3)
-        alpha_ma = np.sqrt(10 ** (-rnd_train[i] / 10) * S / N_ma) / np.sqrt(3)
+        alpha_bw = np.sqrt(10 ** (-rnd_train_bw[i] / 10) * S / N_bw) / np.sqrt(3)
+        alpha_em = np.sqrt(10 ** (-rnd_train_em[i] / 10) * S / N_em) / np.sqrt(3)
+        alpha_ma = np.sqrt(10 ** (-rnd_train_ma[i] / 10) * S / N_ma) / np.sqrt(3)
         signal_noise = beats_train[i] + alpha_bw * noise_bw + alpha_em * noise_em + alpha_ma * noise_ma
         sn_train.append(signal_noise)
         noise_index += samples
@@ -245,9 +245,9 @@ def Data_Preparation(noise_version=1):
         N_bw = noise_pw(noise_bw)
         N_em = noise_pw(noise_em)
         N_ma = noise_pw(noise_ma)
-        alpha_bw = np.sqrt(10 ** (-rnd_test[i] / 10) * S / N_bw) / np.sqrt(3)
-        alpha_em = np.sqrt(10 ** (-rnd_test[i] / 10) * S / N_em) / np.sqrt(3)
-        alpha_ma = np.sqrt(10 ** (-rnd_test[i] / 10) * S / N_ma) / np.sqrt(3)
+        alpha_bw = np.sqrt(10 ** (-rnd_test_bw[i] / 10) * S / N_bw) / np.sqrt(3)
+        alpha_em = np.sqrt(10 ** (-rnd_test_em[i] / 10) * S / N_em) / np.sqrt(3)
+        alpha_ma = np.sqrt(10 ** (-rnd_test_ma[i] / 10) * S / N_ma) / np.sqrt(3)
         signal_noise = beats_test[i] + alpha_bw * noise_bw + alpha_em * noise_em + alpha_ma * noise_ma
         sn_test.append(signal_noise)
         noise_index += samples
